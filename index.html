@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Kiosker Sensor Demo</title>
+</head>
+<body>
+
+<h1>Lightsensor <span class="glyphicon glyphicon-certificate"></span></h1>
+<p>Current value <light id="lightsensorId">'no value yet'</light></p>
+<button type="button" class="btn btn-primary btn-sm" onclick="startLightSensor()">Start lightsensor</button>
+<button type="button" class="btn btn-default btn-sm" onclick="stopLightSensor()">Stop lightsensor</button>
+<p id="lightsensorUpdaterId"></p>
+
+<h1>Bluetooth Devices <span class="glyphicon glyphicon-phone"></span></h1>
+<ul class="list-group" id="bluetoothDevicesId">
+</ul>
+<button type="button" class="btn btn-primary btn-sm" onclick="startBluetoothDiscovery()">Start bluetooth discovery</button>
+<p id="bluetoothUpdaterId"></p>
+
+<script>
+    function lightSensorUpdate(lux, deviceId) {
+        document.getElementById("lightsensorId").innerHTML = lux;
+        document.getElementById("lightsensorUpdaterId").innerHTML = "updated by " + deviceId;
+    }
+
+    function bluetoothSensorUpdate(bluetoothDevices, deviceId) {
+        document.getElementById("bluetoothDevicesId").innerHTML = "";
+        var arrayLength = bluetoothDevices.length;
+        for (var i = 0; i < arrayLength; i++) {
+            document.getElementById("bluetoothDevicesId").innerHTML += "<li>" + bluetoothDevices[i] + "</li>";
+        }
+        document.getElementById("bluetoothUpdaterId").innerHTML = "updated by " + deviceId;
+    }
+
+    function startLightSensor() {
+        sensorBridge.startLightSensor();
+    }
+
+    function startBluetoothDiscovery() {
+        sensorBridge.startBluetoothDiscovery();
+    }
+
+    function stopLightSensor() {
+        sensorBridge.stopLightSensor();
+    }
+</script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
